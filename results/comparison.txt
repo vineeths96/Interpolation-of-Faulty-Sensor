@@ -1,0 +1,2 @@
+The prediction error for Kalman filter is 0.3750.
+The prediction error for causal Wiener filter is 0.3600.
