@@ -54,14 +54,16 @@ def main():
         plt.plot(alpha_list, TMSE_1, label="TMSE")
         plt.xlabel("Alpha")
         plt.ylabel("MSE")
+        plt.title("Wiener interpolator 1")
         plt.legend()
         plt.savefig('./results/Wiener_1.png')
 
         plt.figure()
-        plt.plot(alpha_list, BMSE_2)
-        plt.plot(alpha_list, TMSE_2)
+        plt.plot(alpha_list, BMSE_2, label="BMSE")
+        plt.plot(alpha_list, TMSE_2, label="TMSE")
         plt.xlabel("Alpha")
         plt.ylabel("MSE")
+        plt.title("Wiener interpolator 2")
         plt.legend()
         plt.savefig('./results/Wiener_2.png')
 
