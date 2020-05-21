@@ -1,7 +1,5 @@
 import numpy as np
-np.set_printoptions(linewidth=np.inf)
-
-N = 100
+from paramaters import *
 
 
 def wiener_interpolator1(x, n_0, alpha):
@@ -22,13 +20,27 @@ def wiener_interpolator1(x, n_0, alpha):
         else:
             r[i] = alpha ** (i - n_0 + 1)
 
-    a = np.linalg.inv(R) @ r
+    R_inv = np.linalg.inv(R)
+    a = R_inv @ r
     x_n_0 = np.dot(a, x)
 
-    return x_n_0
+    r_0 = sigma_w ** 2 / (1 - alpha ** 2)
+    BMSE = r_0 - np.transpose(r) @ R_inv @ r
+
+    return x_n_0, BMSE
 
 
 def wiener_interpolator2(x, n_0, alpha):
     x_n_0 = alpha / (1 + alpha ** 2) * (x[n_0 - 1] + x[n_0 + 1])
 
-    return x_n_0
+    r_0 = sigma_w ** 2 / (1 - alpha ** 2)
+    r_1 = alpha * r_0
+    r_2 = alpha * r_1
+
+    r = np.array([r_1, r_1])
+    R = np.array([[r_0, r_2], [r_2, r_0]])
+    R_inv = np.linalg.inv(R)
+
+    BMSE = r_0 - np.transpose(r) @ R_inv @ r
+
+    return x_n_0, BMSE
