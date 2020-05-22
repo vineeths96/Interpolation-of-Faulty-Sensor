@@ -1,10 +1,14 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from kalman_filter import kalman_filter
-from paramaters import *
+from parameters import *
 
 
 def generate_obs_seq():
+    """
+    Generates a realization of the WSS observation
+    """
+
     x = np.zeros(N)
 
     variance_x = sigma_w ** 2 / (1 - alpha ** 2)
@@ -20,6 +24,11 @@ def generate_obs_seq():
 
 
 def main():
+    """
+    For the Kalman filter, find and plot the true and estimated signal
+    and the true and predicted error
+    """
+
     y = generate_obs_seq()
 
     x_true = np.zeros(n0)
@@ -35,6 +44,7 @@ def main():
     for i in range(1, n0):
         x_true[i], x_pred[i], P_true[i], P_pred[i] = kalman_filter(y[i], sigma_v, sigma_w, x_true[i - 1], P_true[i - 1])
 
+    # Plot and save the required plots
     plt.figure()
     plt.plot(x_true, label="True x[n]")
     plt.plot(x_pred, label="Estimated x[n]")

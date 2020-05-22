@@ -1,8 +1,16 @@
 import numpy as np
-from paramaters import *
+from parameters import *
 
 
 def wiener_interpolator1(x, n_0, alpha):
+    """
+    Wiener interpolator using all observations
+    :param x: Observation vector except at n_0
+    :param n_0: The time instant of interpolation
+    :param alpha: Value of alpha
+    :return: The predicted value at n_0 and BMSE
+    """
+
     R = np.zeros([N - 1, N - 1])
     r = np.zeros(N - 1)
     a = np.zeros(N - 1)
@@ -31,6 +39,14 @@ def wiener_interpolator1(x, n_0, alpha):
 
 
 def wiener_interpolator2(x, n_0, alpha):
+    """
+    Wiener interpolator using observations x[n_0 - 1] and x[n_0 + 1]
+    :param x: Observation vector except at n_0
+    :param n_0: The time instant of interpolation
+    :param alpha: Value of alpha
+    :return: The predicted value at n_0 and BMSE
+    """
+
     x_n_0 = alpha / (1 + alpha ** 2) * (x[n_0 - 1] + x[n_0 + 1])
 
     r_0 = sigma_w ** 2 / (1 - alpha ** 2)
